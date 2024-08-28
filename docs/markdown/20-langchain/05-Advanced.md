@@ -7,15 +7,15 @@
 <br>
 
 <div class="flex-row">
-    <img src="./assets/images/mistral-ai.png">
-    <img class="h-250" src="./assets/images/llama2.png">
+    <img src="../../assets/images/mistral-ai.png">
+    <img class="h-250" src="../../assets/images/llama2.png">
 </div>
 <br><br>
 <div class="flex-row">
-    <img src="./assets/images/gemini.png">
-    <img class="h-200" src="./assets/images/chatgpt.png">
-    <img src="./assets/images/bedrock.png">
-    <img class="h-200" src="./assets/images/dall-e.png">
+    <img src="../../assets/images/gemini.png">
+    <img class="h-200" src="../../assets/images/chatgpt.png">
+    <img src="../../assets/images/bedrock.png">
+    <img class="h-200" src="../../assets/images/dall-e.png">
 </div>
 
 [LLM](https://python.langchain.com/docs/integrations/llms/) | 
@@ -31,7 +31,7 @@
 
 ## Lab
 
-* LLMs et configurables
+* LLMs - callbacks et configurables
 
 ##==##
 
@@ -57,7 +57,7 @@
 * Orientation du flux, gestion d'erreurs et/ou d'exceptions
 </div>
 <div style="flex: 1;text-align: center">
-<img class="h-800" src="./assets/images/agent_schema.png">
+<img class="h-800" src="../../assets/images/agent_schema.png">
 </div>
 </div>
 
