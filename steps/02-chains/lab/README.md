@@ -13,7 +13,7 @@ flowchart LR
 ## Etapes
 
 ### 1 - Définir un LLM 
-Sur la base du précédent lab, définir un LLM relié à un modèle Vertex, par exemple "gemini-pro".
+Sur la base du précédent lab, définir un LLM relié à un modèle Vertex, par exemple "gemini-1.0-pro".
 
 ### 2 - Ajouter un PromptTemplate
 Pour structurer le prompt que l'on va transmettre, nous allons utiliser **PromptTemplate** du package langchain_core.prompts. Il permet de définir un template pour notre prompt et d'en variabiliser certaines parties en les mettant entre {}. La méthode from_template permet d'injecter les valeurs des champs entre {} lors de l'éxécution de la chaîne.

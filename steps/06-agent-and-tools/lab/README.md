@@ -34,7 +34,7 @@ def get_sentence_length(sentence: str) -> int:
 
 ## Les agents
 
-### Template de promp
+### Template de prompt
 
 Au même titre que pour une chaîne, il est possible de définir un template de prompt pour un agent. Ce template est même nécessaire car 3 variables sont obligatoire pour le bon fonctionnement de l'agent. Ces variables sont, dans l'ordre :
 
