@@ -60,6 +60,13 @@ prompt = ChatPromptTemplate.from_messages(
 )
 ```
 
+Sinon vous pouvez aussi utiliser des templates déjà existants sur LangChain Hub comme par exemple [**hwchase17/openai-functions-agent**](https://smith.langchain.com/hub/hwchase17/openai-functions-agent) :
+
+```python
+from langchain import hub
+prompt = hub.pull("hwchase17/openai-functions-agent")
+```
+
 ### Création de l'agent
 
 Afin de créer un agent dans LangChain il suffit d'utiliser la méthode `create_tool_calling_agent` à laquelle il faudra fournir les paramètres suivants :
