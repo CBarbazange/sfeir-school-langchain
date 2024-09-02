@@ -44,7 +44,7 @@ pip install pypdf
 
 Cete fois-ci nous allons récupérer le contenu depuis un fichier PDF grâce à la classe `PyPDFLoader` à laquelle il faudra passer le path du chemin vers le fichier à charger. Comme pour le `WebBaseLoader`, il faudra utiliser la méthode `load()` pour charger le document.
 
-[Documentation du PyPDFLoader](https://python.langchain.com/v0.2/docs/integrations/document_loaders/pypdfloader/)
+[Documentation du `PyPDFLoader`](https://python.langchain.com/v0.2/docs/integrations/document_loaders/pypdfloader/)
 
 #### Découpage du contenu
 
@@ -70,9 +70,9 @@ Pour cela nous allons avoir besoin de :
 - un client de base vectorielle : qui va permettre de stocker les documents et leurs embeddings dans une base vectorielle.
 
 Pour l'embedding, nous allons nous servir de `VertexAIEmbeddings` du package **langchain_google_vertexai** qui va nous mettre à disposition un certain nombre de modèles d'embeddings différents (cf : [Liste des modèles](https://cloud.google.com/vertex-ai/generative-ai/docs/embeddings/get-text-embeddings?hl=fr#supported-models)).
-Dans notre cas nous allons utiliser le model `textembedding-gecko-multilingual@001` qui a de bons résultats pour la véctorisation de texte multilingues que nous pourrons spécifier avec le paramètre `model_name` du constructeur du client ``VertexAIEmbeddings``.
+Dans notre cas nous allons utiliser le model `textembedding-gecko-multilingual@001` qui a de bons résultats pour la véctorisation de texte multilingues que nous pourrons spécifier avec le paramètre `model_name` du constructeur du ``VertexAIEmbeddings``.
 
-Pour la base vectorielle, nous allons utiliser la librairie fournit par Meta : **FAISS**, qui est disponible dans le package `langchain_community.vectorstores`.
+Pour la base vectorielle, nous allons utiliser la librairie fournit par Meta : `FAISS`, qui est disponible dans le package **langchain_community.vectorstores**.
 A savoir que FAISS (comme l'ensemble des Vector Store) possède une méthode statique `from_documents()`. Elle s'utilise en passant en paramètres :
 - les documents à vectoriser / stocker
 - la structure / format de l'embedding
@@ -81,31 +81,23 @@ A savoir que FAISS (comme l'ensemble des Vector Store) possède une méthode sta
 
 ### Prompting
 
-Maintenant que l'on a notre contexte enrichi prêt, il nous faut préparer notre prompting qui va l'interpréter. Pour ce faire, nous allons utiliser des prompts mis à disposition sur [**LangChain Hub**](https://smith.langchain.com/hub). Il s'agit d'un dépôt communautaire où il est possible de trouver des templates de prompt, des agents, des chaînes ou d'autres outils utilisables directement dans LangChain.
+Maintenant que l'on a notre contexte enrichi prêt, il nous faut préparer notre prompting qui va l'interpréter. Pour ce faire, nous allons utiliser un des prompts mis à disposition sur [**LangChain Hub**](https://smith.langchain.com/hub). Il s'agit d'un dépôt communautaire où il est possible de trouver des templates de prompt, des agents, des chaînes ou d'autres outils utilisables directement dans LangChain.
 
-Dans notre cas nous allons récupérer le prompt de la manière suivante :
-
-```python
-from langchain import hub
-prompt = hub.pull("langchain-ai/retrieval-qa-chat")
-```
-
-Ce [prompt](https://smith.langchain.com/hub/langchain-ai/retrieval-qa-chat) ressemble à :
+Par exemple nous pouvons y trouver ce [prompt](https://smith.langchain.com/hub/rlm/rag-prompt?organizationId=a187f7c0-ea6c-562e-87f4-605000629bb1) qui ressemble à :
 
 ```
-SYSTEM
-Answer any use questions based solely on the context below:
-
-<context>
-{context}
-</context>
-
-PLACEHOLDER
-chat_history
-
 HUMAN
-{input}
+
+You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know the answer, just say that you don't know. Use three sentences maximum and keep the answer concise.
+
+Question: {input} 
+
+Context: {context} 
+
+Answer:
 ```
+
+Dans notre cas, recréez le prompt correspondant à l'exemple ci-dessus.
 
 ### Execution
 
@@ -114,10 +106,6 @@ HUMAN
 LangChain founit deux méthodes globales qui vont nous être utiles pour la création de la chaîne :
 - `create_stuff_documents_chain()` du package **langchain.chains.combine_documents** : qui permet de construire une chaîne permettant de transmettre des documents à un LLM à partir du LLM cible ainsi que du prompt associé
 - `create_retrieval_chain()` du package **langchain.chains.retrieval** : qui permet de construire une chaîne permettant de récupérer des documents à partir d'un **Retriever** et d'une chaîne de transmission de documents
-
-Afin d'utiliser notre base vectorielle en tant que **Retriever** nous allons utiliser la méthode `as_retriever()` existante sur tous les **Vector Store**.
-
-Langchain fournit une méthode globale `create_stuff_documents_chain()` (du package **langchain.chains.combine_documents**) pour construire votre chaîne pour document dédié avec votre llm cible et votre prompt comme entrée.
 
 [Documentation de la méthode `create_stuff_documents_chain()`](https://python.langchain.com/v0.2/api_reference/langchain/chains/langchain.chains.combine_documents.stuff.create_stuff_documents_chain.html)
 

@@ -39,7 +39,7 @@ source .school.venv/bin/activate
 ## Installation
 
 Via **pip**, installer les librairies `langchain` et `langchain-google-vertexai`. Celles-ci comprennent respectivement les modules/outils core pour créér des applications langchain, ainsi que les outils et extensions nécessaire à l'utilisation intégrations des LLMs disponnibles par Vertex.
-Vertex utilisant l'authentification Google il nous faudra aussi installer **google.auth**.
+Vertex utilisant l'authentification Google il nous faudra aussi installer `google.auth`.
 
 ```sh
 pip install langchain langchain-google-vertexai google.auth
@@ -68,13 +68,11 @@ from langchain_google_vertexai import VertexAI
 
 Ensuite, à l'aide du constructeur *VertexAI()*, initialisez un objet qui permettra d'intérargir au travers du serveur Vertex AI avec un LLM en transmettant le prompt souhaité.
 
-Pour se faire, l'objet définit par langchain fournit une méthode _invoke_ pour déclencher une séquence.
-
-## Pour aller plus loin
-
 Dans le constructeur de notre objet VertexAI(), nous pouvons aussi ajouter différentes options.
 Parmi lesquelles se trouvent :
-- model_name : Le nom du modeleur de LLM que l'on souhaite utiliser
-- temperature : Contrôle le niveau d'aléatoire ou créativité dans les réponses
+- `model_name` (obligatoire) : Le nom du modeleur de LLM que l'on souhaite utiliser
+- `temperature` (optionnel) : Contrôle le niveau d'aléatoire ou créativité dans les réponses
+
+L'objet nouvellement définit par langchain fournit une méthode `invoke` pour déclencher un appel avec en paramètre notre demande.
 
 [Liste des modèles disponibles dans Vertex](https://cloud.google.com/vertex-ai/generative-ai/docs/learn/models?hl=fr)

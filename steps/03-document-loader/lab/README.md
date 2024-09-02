@@ -27,7 +27,7 @@ flowchart TD
         LM --> OP
     end
 
-    D --> |page_content|PT
+    D --> PT
     UR --> PT
     
     OP --> A
@@ -40,7 +40,7 @@ flowchart TD
 [Liste des DocumentLoader existants](https://python.langchain.com/v0.2/docs/integrations/document_loaders/)
 
 Avec la classe `WebBaseLoader` du package **langchain_community.document_loaders**, vous allez pouvoir récupérer le contenu d'une page Web à partir de son URL.
-La classe se charge d'extraire le contenu text de la page en excluant tout élément HTML. Cette action sera effectuée au moment de déclencher la méthode `load()` sur l'objet définit.
+La classe se charge d'extraire le contenu textuel de la page en excluant tout élément HTML. Cette action sera effectuée au moment de déclencher la méthode `load()` sur l'objet définit.
 
 Les `DocumentLoader` renvoient toujours une liste de documents. Par exemple, dans le cas d'un fichier PDF, la liste contiendra un document par page du PDF. Ici, pour le `WebBaseLoader`, la liste n'aura qu'un seul document contenant l'ensemble de la page Web récupérée.
 

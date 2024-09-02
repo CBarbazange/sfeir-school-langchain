@@ -10,7 +10,7 @@
 <br><br>
 * Permet la comparaison de textes et la recherche de similarités
 <br>
-<img src="./assets/images/embeddings.png">
+<img src="../../assets/images/embeddings.png">
 
 Notes:
 
