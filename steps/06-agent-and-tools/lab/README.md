@@ -19,9 +19,11 @@ Parmi ces outils, certains permettent de faire des recherches sur internet dont 
 ### Outils customs
 
 Parfois il peut être nécessaire de créer soit même un outil afin de répondre à un besoin spécifique.
-Pour cela il faut créer un méthode possédant l'annotation `@tool`.
+Pour cela il faut créer un méthode possédant l'annotation `@tool` venant du package **langchain_core.tools**.
 Cette méthode devra avoir une description qui permetra à l'agent de savoir dans quel contexte utiliser cet outil.
 De plus afin que l'agent l'utilise au mieux il est préférable de typer correctement les paramètres d'entrée.
+
+_Exemple :_
 
 ```python
 @tool
@@ -36,7 +38,7 @@ def get_sentence_length(sentence: str) -> int:
 
 ### Template de prompt
 
-Au même titre que pour une chaîne, il est possible de définir un template de prompt pour un agent. Ce template est même nécessaire car 3 variables sont obligatoire pour le bon fonctionnement de l'agent. Ces variables sont, dans l'ordre :
+Au même titre que pour une chaîne, il est possible de définir un template de prompt pour un agent. Ce template est même nécessaire car 3 variables sont obligatoire pour le bon fonctionnement de l'agent. Ces variables sont :
 
 - `chat_history` : stocke l'historique des messages échangés entre l'utilisateur et l'agent. Cela permet à l'agent de maintenir le contexte de la conversation et de founir des réponses plus cohérentes.
 
@@ -49,10 +51,7 @@ __Exemple basique :__
 ```python
 prompt = ChatPromptTemplate.from_messages(
     [
-        (
-            "system",
-            "You are a helpful assistant",
-        ),
+        ("system", "You are a helpful assistant"),
         MessagesPlaceholder(variable_name="chat_history", optional=True),
         ("user", "{input}"),
         MessagesPlaceholder(variable_name="agent_scratchpad", optional=True),
@@ -69,20 +68,25 @@ prompt = hub.pull("hwchase17/openai-functions-agent")
 
 ### Création de l'agent
 
-Afin de créer un agent dans LangChain il suffit d'utiliser la méthode `create_tool_calling_agent` à laquelle il faudra fournir les paramètres suivants :
+Afin de créer un agent dans LangChain il suffit d'utiliser la méthode `create_tool_calling_agent` du package **langchain.agents** à laquelle il faudra fournir les paramètres suivants :
 - `llm` : le `Chat Model` à utiliser. Il faut en utiliser un qui puisse prendre en charge l'appel à des outils (cf : [liste des modèles compatibles](https://python.langchain.com/v0.1/docs/integrations/chat/))
 - `tools` : la liste des outils dont l'agent pourra se servir
-- `prompt` : le template de prompt que l'on souhaite utiliser
+- `prompt` : le (template de) prompt que l'on souhaite utiliser
 
 
 ### Contexte d'exécution
 
-Dans l'état actuel, l'agent ne peut effectuer aucune action et nécessite l'utilisation d'un `AgentExecutor` qui va orchestrer le traitement de la requête ainsi l'exécution des outils.
+Dans l'état actuel, l'agent ne peut effectuer aucune action et nécessite l'utilisation d'un `AgentExecutor` de **langchain.agents** qui va orchestrer le traitement de la requête ainsi l'exécution des outils. Le constructeur de cet `AgentExecutor` prend en compte plusieurs paramètres dont les 3 suivants qui vont nous intéresser :
+- `agent` : l'agent que l'ont souhaite exécuter
+- `tools` : la liste des outils que l'agent pourra utiliser
+- `verbose` : la verbosité de l'exécution (l'activer permet de voir les différentes étapes de raisonnement et d'exécution des outils)
 
 
 ### Appel à l'agent
 
 Une fois l'`AgentExecutor` défin, il est possible d'interragir avec l'agent au travers de ce dernier. Cet `AgentExecutor` implémentant la même interface que le reste des composants chaînnables de LangChain, il suffit d'appeler la méthode `invoke` avec notre requête en input.
+
+![INFO](../../img/info.png) Attention : certains `ChatModel` ne sont pas compatible avec les appels asynchrones ou avec la méthode `stream`.
 
 ## Etapes
 
