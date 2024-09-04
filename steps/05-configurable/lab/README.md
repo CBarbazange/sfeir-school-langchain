@@ -72,7 +72,7 @@ model.with_config(configurable={"llm_temperature": 0.9}).invoke("pick a random n
 
 ### Configurations alternatives
 
-Il est aussi possible grâce aux `configurable_alternatives()`, pour un paramètre donné, de proposer une liste de valeurs possibles correspondant chacune à une configuration différente.
+Il est aussi possible grâce à la méthode `configurable_alternatives()`, pour un paramètre donné, de proposer une liste de valeurs possibles correspondant chacune à une configuration différente.
 Cette méthode requiert plusieurs propriétés :
 
 * `ConfigurableField` : permettant de définir quelle propriété va servir d'alternatives : 
